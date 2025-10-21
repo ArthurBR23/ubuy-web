@@ -1,12 +1,35 @@
-# React + Vite
+# 🛒 UBuy — Plataforma Universitária de Compra e Venda
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Antes de começar, é preciso ter instalado no computador:
 
-Currently, two official plugins are available:
+- [Node.js](https://nodejs.org/)
+- [XAMPP](https://www.apachefriends.org/pt_br/index.html)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ⚙️ Como Rodar o Projeto
 
-## Expanding the ESLint configuration
+### 🗄️ 1. Banco de Dados (XAMPP)
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Abra o **XAMPP** e clique em **Start** no **Apache** e **MySQL**.  
+
+### 💻 2. Rodar o Projeto Principal (Front + Back integrados)
+
+1-Abra a **pasta principal** do projeto.  
+2-Clique na barra de endereço e digite: cmd
+
+(isso vai abrir o prompt de comando dentro da pasta do projeto)
+3- No CMD, digite: npm i --force
+
+(isso instala todas as dependências necessárias)
+4- Depois, digite: npm run dev
+
+O sistema será iniciado automaticamente e ficará disponível em:  
+👉 [http://localhost:3000](http://localhost:3000)
+5- Clique no link que aparecerá
+
+### ⚙️ 3. Rodar o Servidor (API)
+
+1- Abra a pasta **server** do projeto.  
+2- Clique na barra de endereço e digite: cmd
+3- No CMD que abrir, digite: npm i
+4- Em seguida, inicie o servidor com: node server.js
+

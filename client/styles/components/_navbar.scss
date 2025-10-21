@@ -1,0 +1,405 @@
+@use '../utils/variables' as vars;
+
+.container-navbar {
+    border-bottom: solid 1px #777777;
+    padding: 5px 0px 4px 13px;
+}
+
+.container-navbarHome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 15px;
+    border-bottom: solid 1px #777777; 
+    position: relative;
+    z-index: 100;
+
+    .col-navbar {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .search-bar {
+    margin-left: 20px;
+    margin-right: 20px;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+
+    input {
+        width: 100%;
+        padding: 10px 0px 10px 10px;
+        border: 1px solid vars.$azul-logo;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        outline: none;
+        transition: all 0.3s ease;
+
+        &::placeholder {
+        color: vars.$azul-logo;
+        font-weight: bold;
+        }
+
+        &:focus {
+        border-color: darken(vars.$azul-logo, 10%);
+        box-shadow: 0 0 0 2px rgba(vars.$azul-logo, 0.1);
+        }
+    }
+
+    button {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px 0px;
+        border-radius: 0 5px 5px 0;
+        transition: all 0.3s ease;
+
+        &:hover {
+        background-color: rgba(vars.$azul-logo, 0.1);
+        }
+
+        .search-icon {
+        color: vars.$azul-logo;
+        font-size: 1.5rem;
+        }
+    }
+    }
+
+    .menu-dropdown-container {
+    position: relative;
+
+    .menu-icon {
+        font-size: 2.3rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &:hover {
+            color: vars.$azul-logo;
+            transform: scale(1.05);
+        }
+    }
+
+    .menu-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-top: 8px;
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        min-width: 250px;
+        max-height: 400px;
+        overflow-y: auto;
+        z-index: 1000;
+        animation: fadeIn 0.2s ease-in-out;
+
+        .cursos-dropdown-content {
+            padding: 16px 0;
+
+            h3 {
+                margin: 0 0 12px 20px;
+                font-size: 0.9rem;
+                font-weight: bold;
+                color: vars.$azul-logo;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .cursos-list {
+                .curso-item {
+                    padding: 10px 20px;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    color: #666666;
+                    font-size: 0.95rem;
+                    display: flex;
+                    align-items: center;
+
+                    &:hover {
+                        background-color: #f5f5f5;
+                        color: vars.$azul-logo;
+                        padding-left: 24px;
+                        font-weight: 500;
+                    }
+
+                    &::before {
+                        content: '';
+                        display: inline-block;
+                        width: 6px;
+                        height: 6px;
+                        background-color: currentColor;
+                        border-radius: 50%;
+                        margin-right: 12px;
+                        opacity: 0.6;
+                    }
+                }
+            }
+        }
+    }
+}
+
+    .localizacao {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #666666;
+        font-size: 0.9rem;
+        font-weight: 500;
+
+        .local-icon {
+            font-size: 1.2rem;
+            color: vars.$azul-logo;
+        }
+
+        span {
+            white-space: nowrap;
+        }
+    }
+
+    .anuncios, .chat {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        a {
+            text-decoration: none;    
+            color: inherit;         
+
+            &:visited,
+            &:active,
+            &:focus {
+            color: inherit;         
+            outline: none;           
+            }
+
+            span {
+            font-size: 16px;
+            }
+        }
+
+        .anuncio-icon,
+        .chat-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        &:hover {
+            font-weight: bold;
+        }
+    }
+
+    button {
+        padding: 5px 20px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        background-color: transparent;
+        font-size: 0.9rem;
+
+        &.anunciar {
+            border: 2px solid vars.$azul-logo;
+            color: vars.$azul-logo;
+            font-weight: bold;
+
+             a {
+            text-decoration: none;    
+            color: inherit;         
+
+            &:visited,
+            &:active,
+            &:focus {
+            color: inherit;         
+            outline: none;           
+            }
+        }
+
+            &:hover {
+                border: 2px solid vars.$azul-logo;
+                background-color: vars.$azul-logo;
+                color: white;
+                font-weight: bold;
+            }
+        }
+
+        &.entrar {
+            border: 2px solid vars.$azul-logo;
+            background-color: vars.$azul-logo;
+            color: white;
+            font-weight: bold;
+
+            &:hover {
+                border: 2px solid vars.$azul-logo;
+                color: vars.$azul-logo;
+                background-color: transparent;
+                font-weight: bold;
+            }
+        }
+
+        &.logar {
+            border: 2px solid vars.$azul-logo;
+            background-color: vars.$azul-logo;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 5px;
+
+            a {
+            text-decoration: none;    
+            color: inherit;         
+
+            &:visited,
+            &:active,
+            &:focus {
+            color: inherit;         
+            outline: none;           
+            }
+        }
+
+             &:hover {
+                opacity: 90%;
+            }
+        }
+
+        &.logado {
+            border: 2px solid vars.$azul-logo;
+            background-color: vars.$azul-logo;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 5px;
+
+            .person-icon {
+                font-size: 1.1rem;
+            }
+
+            .arrow-icon {
+                font-size: 1.1rem;
+                transition: transform 0.3s ease;
+                
+                &.rotate {
+                    transform: rotate(180deg);
+                }
+            }
+
+            &:hover {
+                opacity: 90%;
+            }
+        }
+    }
+
+    .dropdown-container {
+        position: relative;
+        
+        .logado {
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            z-index: 1000;
+            overflow: hidden;
+            animation: fadeIn 0.2s ease-in-out;
+            pointer-events: auto;
+
+            .dropdown-item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px 16px;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+                border: none;
+                background: none;
+                width: 100%;
+                text-align: left;
+                font-size: 0.9rem;
+                text-decoration: none;
+                color: inherit; 
+
+                &:hover {
+                    background-color: #f5f5f5;
+                }
+
+                .dropdown-icon {
+                    font-size: 1.1rem;
+                    color: vars.$azul-logo;
+                }
+
+                &.logout {
+                    color: #ff4444;
+                    
+                    &:hover {
+                        background-color: #ffe6e6;
+                    }
+                }
+            }
+
+            .dropdown-divider {
+                height: 1px;
+                background-color: #e0e0e0;
+                margin: 4px 0;
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+    .container-navbarHome {
+        flex-direction: column;
+        gap: 10px;
+
+        .col-navbar {
+            width: 100% !important;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .menu-dropdown-container .menu-dropdown {
+            position: fixed;
+            top: 70px;
+            left: 10px;
+            right: 10px;
+            min-width: auto;
+            max-height: 60vh;
+        }
+
+        // Localização responsiva
+        .localizacao {
+            min-width: 150px;
+            max-width: 200px;
+            
+            span {
+                font-size: 0.85rem;
+            }
+        }
+    }
+}

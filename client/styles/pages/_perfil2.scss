@@ -1,0 +1,240 @@
+@use '../utils/variables' as vars;
+
+.perfil-page {
+
+  .container {
+    padding: 2rem;
+    max-width: 80%;
+    margin: 0 auto;
+  }
+
+  .perfil-layout {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .perfil-content {
+    flex: 1;
+    min-height: 600px;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+
+  .form-section {
+    margin-bottom: 2rem;
+
+    h3 {
+      color: vars.$azul-logo;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid vars.$gray;
+      padding-bottom: 0.3rem;
+    }
+
+    &.perigo {
+      background-color: #ffe6e6;
+      padding: 1rem;
+      border-radius: vars.$radius;
+
+      p {
+        color: #990000;
+        margin-bottom: 1rem;
+      }
+
+      .desativar-btn {
+        background-color: #f0ad4e;
+        color: vars.$font;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        margin-right: 10px;
+        border-radius: vars.$radius;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        &:hover {
+          background-color: #be7a19;
+        }
+      }
+
+      .excluir-btn {
+        background-color: #d9534f;
+        color: vars.$font;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: vars.$radius;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        &:hover {
+          background-color: #b3241f;
+        }
+      }
+    }
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        margin-bottom: 0.3rem;
+        font-weight: 600;
+        color: vars.$shadow-component;
+      }
+
+      select, 
+      input,
+      button {
+        padding: 0.5rem;
+        border: 1px solid vars.$gray;
+        border-radius: vars.$radius;
+        font-size: 0.95rem;
+      }
+
+      button {
+        background-color: vars.$azul-logo;
+        color: vars.$font;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        &:hover {
+          background: color-mix(in srgb,vars.$azul-logo 90%, black);
+        }
+      }
+
+      .upload-foto {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        img {
+          width: 100px;
+          height: 100px;
+          object-fit: cover;
+          border-radius: vars.$radius;
+          border: 1px solid vars.$gray;
+        }
+      }
+    }
+  }
+
+  .acoes-form {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    .salvar-btn {
+      background-color: vars.$azul-logo;
+      color: vars.$font;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: vars.$radius;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+
+      &:hover {
+        background: color-mix(in srgb,vars.$azul-logo 90%, black);
+      }
+    }
+  }
+
+  /* === Modal ==== */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  .modal {
+    background: vars.$font;
+    padding: 2rem;
+    border-radius: vars.$radius;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    h2 {
+      margin: 0;
+      margin-bottom: 1.5rem;
+      color: vars.$azul-logo;
+    }
+
+    button {
+      padding: 0.6rem 1.2rem;
+      border-radius: vars.$radius;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &.confirmar {
+        background-color: vars.$azul-logo;
+        color: vars.$font;
+
+        &:hover {
+          background: color-mix(in srgb,vars.$azul-logo 90%, black);
+        }
+      }
+
+      &.cancelar {
+        background-color: vars.$gray;
+        color: vars.$shadow-component;
+
+        &:hover {
+          background: color-mix(in srgb,vars.$gray 90%, black);
+        }
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .acoes-form {
+      flex-direction: column;
+    }
+
+    .perfil-layout {
+      flex-direction: column;
+    }
+
+    .perfil-content {
+      max-height: none;
+      padding-right: 0;
+    }
+  }
+}

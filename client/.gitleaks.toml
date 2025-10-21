@@ -1,0 +1,57 @@
+title = "Custom Gitleaks Configuration"
+
+[[rules]]
+id = "API_KEY"
+description = "Detecta chaves de API hardcoded"
+regex = '''(?:API_KEY|apiKey|ApiKey)\s*=\s*["'][A-Za-z0-9]{16,}["']'''
+tags = ["apikey"]
+
+[[rules]]
+id = "SECRET_KEY"
+description = "Detecta chaves secretas hardcoded"
+regex = '''(?:SECRET_KEY|secretKey|SecretKey)\s*=\s*["'][A-Za-z0-9]{16,}["']'''
+tags = ["secretkey"]
+
+[[rules]]
+id = "PASSWORD"
+description = "Detecta senhas hardcoded"
+regex = '''(?:PASSWORD|password)\s*=\s*["'][A-Za-z0-9]{8,}["']'''
+tags = ["password"]
+
+[[rules]]
+id = "DB_USER"
+description = "Detecta usuários de banco de dados hardcoded"
+regex = '''(?:user|dbUser|DB_USER)\s*[:=]\s*["'][A-Za-z0-9]{3,}["']'''
+tags = ["dbuser"]
+
+[[rules]]
+id = "DB_PASSWORD"
+description = "Detecta senhas de banco de dados hardcoded"
+regex = '''(?:password|dbPassword|DB_PASSWORD)\s*[:=]\s*["'][A-Za-z0-9]{8,}["']'''
+tags = ["dbpassword"]
+
+[[rules]]
+id = "DB_HOST"
+description = "Detecta host de banco de dados hardcoded"
+regex = '''(?:host|dbHost|DB_HOST)\s*[:=]\s*["'][A-Za-z0-9.\-]{3,}["']'''
+tags = ["dbhost"]
+
+[[rules]]
+id = "DB_DATABASE"
+description = "Detecta nomes de banco de dados hardcoded"
+regex = '''(?:database|dbName|DB_DATABASE)\s*[:=]\s*["'][A-Za-z0-9_]{3,}["']'''
+tags = ["dbname"]
+
+[[rules]]
+id = "SSL_CERT_PATH"
+description = "Detecta caminhos de certificados SSL hardcoded"
+regex = '''["'][./a-zA-Z0-9_/\-]*(?:ca\.pem|client-cert\.pem|client-key\.pem)["']'''
+tags = ["sslcert"]
+
+[allowlist]
+description = "allowlist"
+
+paths = [
+  '''^node_modules/''',
+  '''^coverage/''',
+]

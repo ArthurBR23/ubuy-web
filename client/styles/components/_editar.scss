@@ -1,0 +1,142 @@
+@use '../utils/variables' as vars;
+
+.edicao-perfil {
+  h2 {
+    color: #333;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+  }
+
+  .form-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #F8F8F8;
+    border-radius: 8px;
+
+    h3 {
+      color: #333;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    &.perigo {
+      border-left: 4px solid #ff4444;
+      background: #fff5f5;
+
+      h3 {
+        color: #ff4444;
+      }
+    }
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #333;
+      }
+
+      input {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 0.95rem;
+
+        &:focus {
+          outline: none;
+          border-color: vars.$azul-logo;
+        }
+      }
+
+      .upload-foto {
+        button {
+          background: #e9ecef;
+          border: 1px dashed #ddd;
+          padding: 10px;
+          border-radius: 6px;
+          cursor: pointer;
+          width: 100%;
+
+          &:hover {
+            background: #dee2e6;
+          }
+        }
+      }
+    }
+  }
+
+  .desativar-conta {
+    p {
+      color: #666;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .excluir-btn {
+      background: #ff4444;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+
+      &:hover {
+        background: color-mix(in srgb, #ff4444 90%, black);
+      }
+    }
+  }
+
+  .acoes-form {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 2rem;
+
+    .salvar-btn {
+      background: vars.$azul-logo;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover {
+        background: color-mix(in srgb,vars.$azul-logo 90%, black);
+      }
+    }
+
+    .cancelar-btn {
+      background: #6c757d;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 6px;
+      cursor: pointer;
+
+      &:hover {
+        background: color-mix(in srgb,#6c757d 90%, black);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .edicao-perfil {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .acoes-form {
+      flex-direction: column;
+    }
+  }
+}

@@ -1,0 +1,344 @@
+@use '../utils/variables' as vars;
+
+.minhas-compras-page {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+
+  .container {
+    padding: 2rem;
+    max-width: 1200px;
+    max-height: 87vh;
+    overflow: auto;
+    margin: 0 auto;
+  }
+
+  .loading-state,
+  .error-state,
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid vars.$azul-logo;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    .error-icon,
+    .empty-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      color: #333;
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    p {
+      color: #666;
+      margin-bottom: 1.5rem;
+      max-width: 400px;
+      line-height: 1.5;
+    }
+  }
+
+  .error-state {
+    .error-icon {
+      color: #dc3545;
+    }
+  }
+
+  .empty-state {
+    .empty-icon {
+      color: #6c757d;
+    }
+  }
+
+  .compras-header {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    h1 {
+      color: #333;
+      font-size: 2rem;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .compras-stats {
+      .total-compras {
+        background: vars.$azul-logo;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .compras-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .compra-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      border-color: vars.$azul-logo;
+    }
+
+    .compra-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+
+      .compra-status {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .status-badge {
+          padding: 0.25rem 0.75rem;
+          border-radius: 12px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+
+          &.entregue {
+            background: #e8f5e8;
+            color: #2e7d32;
+          }
+
+          &.pendente {
+            background: #fff3e0;
+            color: #f57c00;
+          }
+
+          &.cancelada {
+            background: #ffebee;
+            color: #c62828;
+          }
+        }
+
+        .compra-data {
+          color: #666;
+          font-size: 0.85rem;
+        }
+      }
+    }
+
+    .compra-content {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+
+      .compra-imagem {
+        width: 100px;
+        height: 100px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #f5f5f5;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .compra-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .compra-nome {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #333;
+          margin: 0;
+          line-height: 1.3;
+        }
+
+        .compra-descricao {
+          font-size: 0.9rem;
+          color: #666;
+          line-height: 1.4;
+          margin: 0;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+.compra-detalhes {
+  margin-top: auto;
+
+  .compra-preco {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: vars.$azul-logo;
+    margin-bottom: 0.25rem;
+  }
+
+  .compra-vendedor {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+  }
+
+  .compra-data-info {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 0.5rem;
+    
+    small {
+      font-style: italic;
+    }
+  }
+}
+
+.compra-header {
+  .compra-data {
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+}
+      }
+    }
+
+    .compra-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+
+      button {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex: 1;
+
+        &.btn-avaliar {
+          background: #f8f9fa;
+          color: #333;
+          border: 1px solid #dee2e6;
+
+          &:hover {
+            background: #e9ecef;
+          }
+        }
+
+        &.btn-detalhes {
+          background: vars.$azul-logo;
+          color: white;
+
+          &:hover {
+            background: color-mix(in srgb, vars.$azul-logo 90%, black);
+          }
+        }
+      }
+    }
+  }
+
+  .btn-retry,
+  .btn-explorar {
+    padding: 0.75rem 1.5rem;
+    background: vars.$azul-logo;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: color-mix(in srgb, vars.$azul-logo 90%, black);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .minhas-compras-page {
+    .container {
+      padding: 1rem;
+    }
+
+    .compras-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .compras-list {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .compra-card {
+      padding: 1rem;
+
+      .compra-content {
+        flex-direction: column;
+
+        .compra-imagem {
+          width: 100%;
+          height: 150px;
+        }
+      }
+
+      .compra-actions {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .minhas-compras-page {
+    .compra-card {
+      .compra-header {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  }
+}

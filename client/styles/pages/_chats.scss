@@ -1,0 +1,56 @@
+@use '../utils/variables' as var;
+
+.Chats-page {
+    .container {
+        display: flex;
+        height: 90vh;
+
+        .chat-list {
+            width: 30%;
+            border-right: 1px solid #ccc;
+                    max-height: 90vh;
+        overflow-x: auto;
+        }
+
+        .chatAtivo {
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+
+        .chatDesativo {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+
+        .foto-perfil {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .nome {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .ultimaMensagem {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .horario {
+            margin-left: auto;
+            font-size: 0.8rem;
+            color: #999;
+        }
+    }
+}

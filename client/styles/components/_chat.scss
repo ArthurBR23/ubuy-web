@@ -1,0 +1,884 @@
+/* @use '../utils/variables' as var;
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90vh;
+  width: 100%;
+  overflow: hidden;
+
+  box-shadow: var.$shadow-component;
+  font-family: var.$font-family;
+  gap: 1rem;
+
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+      background: var.$background-comp;
+      border-radius: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: var.$azul-light-logo;
+      border-radius: 5px
+    }
+
+    .no-messages {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      color: var.$font-secondary;
+      font-size: 1rem;
+      font-style: italic;
+    }
+  }
+
+  .message {
+  margin-bottom: 1.2rem;
+  max-width: 60%;
+  padding: 1rem 1.3rem;
+  border-radius: 10px;
+  word-break: break-word;
+  line-height: 1.5;
+  font-size: 1rem;
+  position: relative; 
+
+  &.sent {
+    background: var.$azul-light-logo;
+    margin-left: auto;
+    border-top-right-radius: 0;
+  }
+
+  &.received {
+    background-color: var.$gray;
+    margin-right: auto;
+    border-top-left-radius: 0;
+  }
+
+  .message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+    font-size: 0.8rem;
+
+    .sender {
+      font-weight: bold;
+    }
+
+    .timestamp {
+      font-style: italic;
+      opacity: 0.7;
+    }
+  }
+
+  .message-text {
+    font-size: 1rem;
+  }
+
+  .delete-btn {
+    position: absolute;
+    bottom: 5px;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 0; 
+    transition: opacity 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      color: red;
+    }
+  }
+
+  &:hover .delete-btn {
+    opacity: 1; 
+  }
+}
+
+
+  .chat-input {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.2rem;
+    border-radius: 10px;
+    gap: 0.8rem;
+
+    input {
+      flex: 1;
+      padding: 0.9rem 1rem;
+      border: 1px solid var.$gray;
+      border-radius: 10px;
+      font-size: 1rem;
+
+      &:focus {
+        outline: none;
+        border: 1px solid var.$azul-logo;
+      }
+    }
+
+    .camera-icon {
+      color: var.$azul-logo; 
+      font-size: 2.2rem;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    button {
+      border: none;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      .send-icon {
+        color: var.$azul-logo; 
+        font-size: 2.2rem;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+  }
+}
+ */
+
+ @use '../utils/variables' as vars;
+
+.chats-page {
+  font-family: vars.$font-family;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+
+  .chats-container {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 70px); 
+  }
+
+  .chats-sidebar {
+    width: 300px;
+    border-right: 1px solid vars.$gray;
+    background-color: #f8f9fa;
+    padding: 1rem;
+    overflow-y: auto;
+    flex-shrink: 0;
+
+    .sidebar-header {
+      margin-bottom: 1.5rem;
+      
+      h2 {
+        color: #333;
+        margin: 0 0 0.5rem 0;
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+
+      .sidebar-subtitle {
+        color: #666;
+        font-size: 0.9rem;
+        margin: 0;
+      }
+    }
+
+    .contact-list {
+      .contact-item {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem;
+        cursor: pointer;
+        background: transparent;
+        border-left: 4px solid transparent;
+        border-radius: vars.$radius;
+        margin-bottom: 0.5rem;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+
+        &:hover {
+          background: #e8f4ff;
+          border-color: #d0e7ff;
+        }
+
+        &.active {
+          background: #e8f4ff;
+          border-left: 4px solid vars.$azul-logo;
+          border-color: #d0e7ff;
+        }
+
+        .contact-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 0.75rem;
+          background: vars.$azul-logo;
+          flex-shrink: 0;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+
+          .avatar-placeholder {
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+          }
+        }
+
+        .contact-info {
+          flex: 1;
+          min-width: 0;
+
+          .contact-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+          }
+
+          .last-message {
+            color: #666;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+
+        .message-indicator {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 0.25rem;
+
+          .message-time {
+            color: #999;
+            font-size: 0.75rem;
+          }
+
+          .unread-badge {
+            background: vars.$azul-logo;
+            color: white;
+            border-radius: 10px;
+            padding: 0.15rem 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            min-width: 18px;
+            text-align: center;
+          }
+        }
+      }
+
+      .no-contacts {
+        text-align: center;
+        padding: 2rem;
+        color: #666;
+
+        p {
+          margin: 0 0 0.5rem 0;
+        }
+
+        span {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
+  .chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: white;
+
+    .chat-header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid vars.$gray;
+      background: white;
+
+      .chat-profile {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+         &:hover {
+          cursor: pointer;
+          color: vars.$azul-logo;
+          font-weight: bold;
+         }
+      }
+      
+      h2 {
+        color: #333;
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .chat-subtitle {
+        color: #666;
+        font-size: 0.9rem;
+        margin: 0.25rem 0 0 0;
+      }
+
+      .no-chat-selected {
+        color: #999;
+        font-style: italic;
+      }
+    }
+
+    .messages-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: vars.$azul-logo;
+        border-radius: 3px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+      }
+
+      .message-group {
+        margin-bottom: 1rem;
+
+        .message-item {
+          display: flex;
+          margin-bottom: 0.5rem;
+
+          &.own-message {
+            justify-content: flex-end;
+
+            .message-bubble {
+              background: vars.$azul-logo;
+              color: white;
+              border-top-right-radius: 4px;
+              border-top-left-radius: 12px;
+
+              .message-sender {
+                color: rgba(255, 255, 255, 0.9);
+              }
+
+              .message-time {
+                color: rgba(255, 255, 255, 0.8);
+              }
+            }
+          }
+
+          &.other-message {
+            justify-content: flex-start;
+
+            .message-bubble {
+              background: white;
+              color: #333;
+              border-top-left-radius: 4px;
+              border-top-right-radius: 12px;
+              border: 1px solid #e0e0e0;
+            }
+          }
+
+          .message-bubble {
+            max-width: 70%;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            
+            .message-sender {
+              font-weight: 600;
+              margin-bottom: 0.25rem;
+              font-size: 0.85rem;
+            }
+
+            .message-text {
+              white-space: pre-wrap;
+              word-wrap: break-word;
+              line-height: 1.4;
+            }
+
+            .message-time {
+              font-size: 0.75rem;
+              margin-top: 0.5rem;
+              text-align: right;
+              opacity: 0.8;
+            }
+          }
+        }
+      }
+
+      .no-messages {
+        text-align: center;
+        padding: 3rem;
+        color: #999;
+
+        .no-messages-icon {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+          opacity: 0.5;
+        }
+
+        h3 {
+          color: #666;
+          margin: 0 0 0.5rem 0;
+        }
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+
+    .chat-input-container {
+      display: flex;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid vars.$gray;
+      background: white;
+      gap: 0.75rem;
+      align-items: center;
+
+      .file-upload-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: vars.$radius;
+        border: 1px solid vars.$gray;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+
+        &:hover:not(:disabled) {
+          background: #f5f5f5;
+          border-color: #ccc;
+        }
+
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
+      }
+
+      .message-input {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border: 1px solid vars.$gray;
+        border-radius: vars.$radius;
+        font-size: 1rem;
+        resize: none;
+        min-height: 35px;
+        max-height: 120px;
+        font-family: inherit;
+
+        &:focus {
+          outline: none;
+          border-color: vars.$azul-logo;
+          box-shadow: 0 0 0 2px rgba(vars.$azul-logo, 0.1);
+        }
+
+        &:disabled {
+          background: #f5f5f5;
+          cursor: not-allowed;
+        }
+      }
+
+      .send-btn {
+        padding: 0.75rem 1.5rem;
+        background: vars.$azul-logo;
+        color: white;
+        border: none;
+        border-radius: vars.$radius;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+        min-height: 44px;
+
+        &:hover:not(:disabled) {
+          background: color-mix(in srgb, vars.$azul-logo 90%, black);
+        }
+
+        &:disabled {
+          background: #ccc;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+// Estados vazios
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+  color: #666;
+
+  .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+
+  h3 {
+    color: #333;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.3rem;
+  }
+
+  p {
+    margin: 0 0 1.5rem 0;
+    max-width: 400px;
+    line-height: 1.5;
+  }
+
+  .btn-explorar {
+    padding: 0.75rem 1.5rem;
+    background: vars.$azul-logo;
+    color: white;
+    border: none;
+    border-radius: vars.$radius;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: color-mix(in srgb, vars.$azul-logo 90%, black);
+    }
+  }
+}
+
+// Adicione estas classes ao seu Chats.scss
+
+.chat-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .chat-profile-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .chat-profile-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+  }
+
+  .chat-profile-details {
+    h2 {
+      margin: 0 0 0.25rem 0;
+      font-size: 1.25rem;
+    }
+
+    .clickPerfil {
+      color: vars.$azul-logo;
+      cursor: pointer;
+      font-size: 0.9rem;
+      text-decoration: underline;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: color-mix(in srgb, vars.$azul-logo 80%, black);
+      }
+    }
+  }
+}
+
+.contact-avatar {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+}
+
+// Estilo para quando não está logado
+.not-logged-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: 400px;
+
+  h2 {
+    color: #495057;
+    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.4;
+    
+    @media (max-width: 768px) {
+      font-size: 1.3rem;
+    }
+  }
+
+  .login-btn {
+    padding: 0.75rem 2rem;
+    background: vars.$azul-logo;
+    color: white;
+    border: none;
+    border-radius: vars.$radius;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(vars.$azul-logo, 0.2);
+    
+    &:hover {
+      background: color-mix(in srgb, vars.$azul-logo 90%, black);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(vars.$azul-logo, 0.3);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// Versão alternativa com ícone maior (opcional)
+.not-logged-container.with-icon {
+  .login-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+  
+  h2 {
+    margin-bottom: 2rem;
+  }
+}
+
+// Para telas menores
+@media (max-width: 480px) {
+  .not-logged-container {
+    padding: 1.5rem;
+    
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1.25rem;
+    }
+    
+    .login-btn {
+      padding: 0.65rem 1.75rem;
+      font-size: 0.95rem;
+    }
+    
+    &.with-icon {
+      .login-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1.25rem;
+      }
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .chat-profile {
+    .chat-profile-avatar {
+      width: 40px;
+      height: 40px;
+      
+      .avatar-placeholder {
+        font-size: 1rem;
+      }
+    }
+
+    .chat-profile-details {
+      h2 {
+        font-size: 1.1rem;
+      }
+      
+      .clickPerfil {
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  .contact-avatar {
+    width: 36px;
+    height: 36px;
+    
+    .avatar-placeholder {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .chats-page {
+    .chats-container {
+      flex-direction: column;
+      height: calc(100vh - 60px);
+    }
+
+    .chats-sidebar {
+      width: 100%;
+      height: 200px;
+      border-right: none;
+      border-bottom: 1px solid vars.$gray;
+
+      .contact-list {
+        display: flex;
+        overflow-x: auto;
+        gap: 0.5rem;
+
+        .contact-item {
+          min-width: 200px;
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .chat-main {
+      .messages-container {
+        padding: 1rem;
+      }
+
+      .chat-input-container {
+        padding: 0.75rem 1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .chats-page {
+    .chats-sidebar {
+      height: 180px;
+      padding: 0.75rem;
+
+      .contact-item {
+        min-width: 180px;
+        padding: 0.5rem;
+
+        .contact-avatar {
+          width: 32px;
+          height: 32px;
+          margin-right: 0.5rem;
+        }
+
+        .contact-info {
+          .contact-name {
+            font-size: 0.9rem;
+          }
+
+          .last-message {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+
+    .chat-main {
+      .messages-container {
+        padding: 0.75rem;
+
+        .message-group {
+          .message-item {
+            .message-bubble {
+              max-width: 85%;
+              padding: 0.5rem 0.75rem;
+            }
+          }
+        }
+      }
+
+      .chat-input-container {
+        padding: 0.5rem 0.75rem;
+        gap: 0.5rem;
+
+        .file-upload-btn,
+        .send-btn {
+          width: 40px;
+          height: 40px;
+          min-height: 40px;
+        }
+
+        .message-input {
+          padding: 0.5rem 0.75rem;
+          min-height: 40px;
+        }
+      }
+    }
+  }
+}
